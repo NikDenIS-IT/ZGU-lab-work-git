@@ -48,4 +48,4 @@ function clearDisplay() {
 }
 
 // === Приветствие в консоль ===
-console.log("Hello, World! — Калькулятор инициализирован.");
+console.log("Калькулятор готов к работе");
