@@ -19,8 +19,25 @@ function append(value) {
 }
 
 function operate(op) {
-    // Пока не реализовано — просто заглушка
-    alert(`Операция "${op}" пока не поддерживается.`);
+    const num = parseFloat(currentInput);
+
+    if (op === '+' && firstOperand === null) {
+        // Сохраняем первое число и оператор
+        firstOperand = num;
+        operator = '+';
+        currentInput = '0';
+    } else if (op === '=' && operator === '+') {
+        // Выполняем сложение
+        const result = firstOperand + num;
+        currentInput = String(result);
+        // Сбрасываем состояние
+        firstOperand = null;
+        operator = null;
+    } else if (op === '=') {
+        // Нажатие = без оператора — ничего не делаем
+        return;
+    }
+    updateDisplay();
 }
 
 function clearDisplay() {
@@ -30,5 +47,5 @@ function clearDisplay() {
     updateDisplay();
 }
 
-// === Приветствие в консоль (аналог "Hello, World!") ===
+// === Приветствие в консоль ===
 console.log("Hello, World! — Калькулятор инициализирован.");
