@@ -3,14 +3,17 @@ let currentInput = '0';
 let firstOperand = null;
 let operator = null;
 
-// === Вспомогательные функции ===
+// === Обновление дисплея ===
 function updateDisplay() {
-    document.getElementById('display').innerText = currentInput;
+    const display = document.getElementById('display');
+    if (display) {
+        display.innerText = currentInput;
+    }
 }
 
-// === Основные функции калькулятора ===
+// === Добавление цифры ===
 function append(value) {
-    if (currentInput === '0') {
+    if (currentInput === '0' && value !== '.') {
         currentInput = value;
     } else {
         currentInput += value;
@@ -18,28 +21,7 @@ function append(value) {
     updateDisplay();
 }
 
-function operate(op) {
-    const num = parseFloat(currentInput);
-
-    if (op === '+' && firstOperand === null) {
-        // Сохраняем первое число и оператор
-        firstOperand = num;
-        operator = '+';
-        currentInput = '0';
-    } else if (op === '=' && operator === '+') {
-        // Выполняем сложение
-        const result = firstOperand + num;
-        currentInput = String(result);
-        // Сбрасываем состояние
-        firstOperand = null;
-        operator = null;
-    } else if (op === '=') {
-        // Нажатие = без оператора — ничего не делаем
-        return;
-    }
-    updateDisplay();
-}
-
+// === Очистка ===
 function clearDisplay() {
     currentInput = '0';
     firstOperand = null;
@@ -47,5 +29,51 @@ function clearDisplay() {
     updateDisplay();
 }
 
+HEAD
+// === Выполнение операции ===
+function operate(op) {
+    const num = parseFloat(currentInput);
+
+    // Если нажата операция (+, *, и т.д.)
+    if (op === '+' || op === '*') {
+        if (firstOperand === null) {
+            // Сохраняем первое число и оператор
+            firstOperand = num;
+            operator = op;
+            currentInput = '0';
+        } else {
+            // Уже есть оператор — выполняем предыдущую операцию
+            if (operator === '+') {
+                firstOperand += num;
+            } else if (operator === '*') {
+                firstOperand *= num;
+            }
+            operator = op;
+            currentInput = '0';
+        }
+    } 
+    // Если нажато '='
+    else if (op === '=') {
+        if (operator === '+') {
+            currentInput = String(firstOperand + num);
+        } else if (operator === '*') {
+            currentInput = String(firstOperand * num);
+        } else {
+            // Нет оператора — просто оставляем число
+            currentInput = String(num);
+        }
+        // Сбрасываем состояние
+        firstOperand = null;
+        operator = null;
+    }
+
+    updateDisplay();
+}
+
+// === Инициализация ===
+console.log('Калькулятор запущен.');
+updateDisplay();
+
 // === Приветствие в консоль ===
 console.log("Калькулятор готов к работе");
+main
