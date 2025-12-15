@@ -29,6 +29,7 @@ function clearDisplay() {
     updateDisplay();
 }
 
+HEAD
 // === Выполнение операции ===
 function operate(op) {
     const num = parseFloat(currentInput);
@@ -72,3 +73,7 @@ function operate(op) {
 // === Инициализация ===
 console.log('Калькулятор запущен.');
 updateDisplay();
+
+// === Приветствие в консоль ===
+console.log("Калькулятор готов к работе");
+main
