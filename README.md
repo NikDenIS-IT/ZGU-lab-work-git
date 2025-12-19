@@ -1,6 +1,6 @@
 #  Калькулятор — Лабораторная работа №2 
 
-[![Release](https://img.shields.io/github/v/release/NikDenIS-IT/ZGU-lab-work-git?label=версия)](https://github.com/NikDenIS-IT/ZGU-lab-work-git/releases)
+
 
 ##  Описание
 Лабораторная работа по предмету "Информационные технологии".  
